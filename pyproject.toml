@@ -1,28 +1,18 @@
-[tool.poetry]
-name = "bikes"
-version = "1.0.0"
-description = "end-to-end project for predicting the number of bikes available."
-repository = "https://github.com/fmind/mlops-python-package"
-documentation = "https://fmind.github.io/mlops-python-package/"
-authors = ["Your Name <you@example.com>"]
-license = "CC BY"
+[project]
+name = "mlops"
+version = "0.1.0"
+description = "Predict the number of bikes available"
 readme = "README.md"
-keywords = ["mlops", "python", "package"]
-packages = [{ include = "bikes", from = "src" }]
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.0",
+]
+keywords = ["mlops","python","package"]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-pandas = "^2.2.3"
-scikit-learn = "^1.6.0"
-
-[tool.poetry.scripts]
-bikes = 'bikes.scripts:main'
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
 
 
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.5"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"

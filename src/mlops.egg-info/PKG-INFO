@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: mlops
+Version: 0.1.0
+Summary: Predict the number of bikes available
+Keywords: mlops,python,package
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib>=3.10.0
+Requires-Dist: nbformat>=5.10.4
+Requires-Dist: numpy>=2.2.1
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: plotly>=5.24.1
+Requires-Dist: scikit-learn>=1.6.0

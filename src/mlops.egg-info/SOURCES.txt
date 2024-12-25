@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+src/hello.py
+src/bikes/scripts.py
+src/mlops.egg-info/PKG-INFO
+src/mlops.egg-info/SOURCES.txt
+src/mlops.egg-info/dependency_links.txt
+src/mlops.egg-info/requires.txt
+src/mlops.egg-info/top_level.txt

@@ -11,6 +11,11 @@ dependencies = [
     "pandas>=2.2.3",
     "plotly>=5.24.1",
     "scikit-learn>=1.6.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "omegaconf>=2.3.0",
+    "pandera>=0.22.1",
+    "pytest>=8.3.4",
 ]
 keywords = ["mlops","python","package"]
 
@@ -18,10 +23,54 @@ keywords = ["mlops","python","package"]
 dev = [
     "ipykernel>=6.29.5",
 ]
+checkers = [
+    "mypy>=1.14.0",
+    "pandera>=0.22.1",
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "ruff>=0.8.4",
+    "pytest-mock>=3.14.0",
+    "pytest-xdist>=3.6.1",
+]
 
 [project.scripts]
 bikes = "bikes.scripts:main"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+
+
+
+[tool.mypy]
+pretty = true
+python_version = "3.12"
+checked_untyped_defs = true
+ignore_missing_imports = true
+plugins = ["pandera.mypy","pydantic.mypy"]
+
+[tool.ruff]
+fix = true
+indent-width = 4
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention="google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["D100", "D103"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+omit = ["__main__.py"]
+
+[tool.pytest.ini_options]
+addopts = "--verbose=2"
+pythonpath = ["src"]
+
+#[build-system]
+#requires = ["hatchling"]
+#build-backend = "hatchling.build"
+

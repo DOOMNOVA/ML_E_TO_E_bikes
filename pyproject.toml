@@ -16,6 +16,7 @@ dependencies = [
     "omegaconf>=2.3.0",
     "pandera>=0.22.1",
     "pytest>=8.3.4",
+    "loguru>=0.7.3",
 ]
 keywords = ["mlops","python","package"]
 

@@ -32,6 +32,7 @@ checkers = [
     "ruff>=0.8.4",
     "pytest-mock>=3.14.0",
     "pytest-xdist>=3.6.1",
+    "bandit>=1.8.0",
 ]
 
 [project.scripts]
@@ -70,6 +71,9 @@ omit = ["__main__.py"]
 [tool.pytest.ini_options]
 addopts = "--verbose=2"
 pythonpath = ["src"]
+
+[tool.bandit]
+targets = ["src"]
 
 #[build-system]
 #requires = ["hatchling"]

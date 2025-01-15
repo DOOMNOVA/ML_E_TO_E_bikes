@@ -161,4 +161,43 @@ class BaselineSklearnModel(Model):
     def predict(self, inputs: schemas.Inputs) -> schemas.Outputs:
         model = self.get_internal_model()
         prediction = model.predict(inputs)
-        outputs = schemas.Outputs({schemas.OutputSchema.prediction: prediction})
+        outputs = schemas.Outputs({schemas.OutputSchema.prediction: prediction}, index=inputs.index)
+        return outputs
+
+    @T.override
+    def explain_model(self) -> schemas.FeatureImportances:
+        model = self.get_internal_model()
+        regressor = model.named_steps["regressor"]
+        transformer = model.named_steps["transformer"]
+        feature = transformer.get_feature_names_out()
+        feature_importances = schemas.FeatureImportances(
+            data={
+                "feature": feature,
+                "importance": regressor.feature_importances_,
+            }
+        )
+        return feature_importances
+
+    @T.override
+    def explain_samples(self, inputs: schemas.Inputs) -> schemas.SHAPValues:
+        model = self.get_internal_model()
+        regressor = model.named_steps["regressor"]
+        transformer = model.named_steps["transformer"]
+        transformed = transformer.transpose(X=inputs)
+        explainer = shap.TreeExplainer(model=regressor)
+        shap_values = schemas.SHAPValues(
+            data=explainer.shap_values(X=transformed),
+            columns=transformer.get_feature_names_out(),
+        )
+
+        return shap_values
+
+    @T.override
+    def get_internal_model(self) -> pipeline.Pipeline:
+        model = self._pipeline
+        if model is None:
+            raise ValueError("Model is not fitted")
+        return model
+
+
+ModelKind = BaselineSklearnModel
